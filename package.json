@@ -1,0 +1,23 @@
+{
+  "name": "team-vayu",
+  "version": "1.0.0",
+  "description": "Team VAYU — Official Aerospace and UAV Engineering Team Website",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "keywords": [
+    "aerospace",
+    "uav",
+    "drones",
+    "team-vayu",
+    "engineering"
+  ],
+  "author": "Team VAYU",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.21.2"
+  }
+}

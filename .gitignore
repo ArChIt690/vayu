@@ -1,0 +1,15 @@
+# Dependencies
+node_modules/
+package-lock.json
+
+# Local telemetry & transmission data
+data/messages.json
+
+# Logs & Environment
+*.log
+.env
+
+# OS Files
+.DS_Store
+Thumbs.db
+desktop.ini
