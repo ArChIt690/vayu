@@ -1,5 +1,5 @@
 import { lazy, Suspense } from 'react'
-import FluxLines from '../components/reactbits/FluxLines'
+import PatternWaves from '../components/reactbits/PatternWaves'
 import Hero from '../sections/home/Hero'
 import AboutUs from '../sections/home/AboutUs'
 import LatestDev from '../sections/home/LatestDev'
@@ -10,7 +10,7 @@ const Home = () => {
   return (
     <>
       <div className="pointer-events-none fixed inset-0 z-0" aria-hidden="true">
-        <FluxLines />
+        <PatternWaves />
       </div>
       <Suspense fallback={null}>
         <DroneScene />

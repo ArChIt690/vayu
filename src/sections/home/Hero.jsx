@@ -48,7 +48,7 @@ const Hero = () => {
             Engineering the future of flight
           </motion.p>
 
-          <motion.p variants={item} className="mt-6 max-w-xl text-base leading-relaxed text-slate-400 sm:text-lg">
+          <motion.p variants={item} className="mt-6 max-w-xl text-base leading-relaxed text-slate-200 sm:text-lg">
             The premier student aerospace and autonomous UAV engineering team from IEM, Kolkata. Designing,
             fabricating, and flight-testing mission-critical autonomous aerial robotics.
           </motion.p>
