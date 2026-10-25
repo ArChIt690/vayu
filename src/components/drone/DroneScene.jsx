@@ -130,6 +130,7 @@ const DroneScene = () => {
         <directionalLight position={[4, 6, 5]} intensity={3} />
         <directionalLight position={[-3, 2, -5]} intensity={1.6} color="#7dd3fc" />
         <pointLight position={[-3, 0.5, 3]} intensity={18} color="#38bdf8" />
+        <pointLight position={[3, 0.5, -3]} intensity={18} color="#38bdf8" />
 
         {/* Studio reflections for the glossy carbon and metal (generated locally, no HDR download) */}
         <Environment resolution={256} frames={1}>

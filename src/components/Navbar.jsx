@@ -30,8 +30,6 @@ const Navbar = () => {
         items={NAV_ITEMS}
         activeHref={pathname}
         linkComponent={RouterLink}
-        theme="dark"
-        itemStyle="plain"
         bounce={0.37}
       />
     </header>
