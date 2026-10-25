@@ -4,6 +4,7 @@
   --font-sans: "Exo 2", ui-sans-serif, system-ui, sans-serif;
   --font-display: "Orbitron", "Exo 2", ui-sans-serif, sans-serif;
   --font-mono: "Share Tech Mono", ui-monospace, monospace;
+  --font-gauge: "B612 Mono", ui-monospace, monospace;
 
   --color-night-950: #04060f;
   --color-night-900: #070b1a;
@@ -13,6 +14,12 @@
 html {
   color-scheme: dark;
   scroll-behavior: smooth;
+  /* The altitude gauge replaces the browser scrollbar (scrolling still works) */
+  scrollbar-width: none;
+}
+
+html::-webkit-scrollbar {
+  display: none;
 }
 
 body {

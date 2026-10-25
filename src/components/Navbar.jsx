@@ -17,7 +17,7 @@ const StarIcon = () => (
 
 const Navbar = () => {
   const { pathname } = useLocation()
-  const { scrollY, scrollYProgress } = useScroll()
+  const { scrollY } = useScroll()
   const [scrolled, setScrolled] = useState(false)
   // Remember which page the menu was opened on, so changing page closes it
   const [menuOpenOn, setMenuOpenOn] = useState(null)
@@ -153,15 +153,6 @@ const Navbar = () => {
           </motion.nav>
         )}
       </AnimatePresence>
-
-      {/* Scroll progress (hidden at the top, and on pages too short to scroll, where progress reads as 100%) */}
-      {scrolled && (
-        <motion.div
-          className="absolute inset-x-0 -bottom-px h-0.5 origin-left bg-sky-400"
-          style={{ scaleX: scrollYProgress }}
-          aria-hidden="true"
-        />
-      )}
     </header>
   )
 }

@@ -2,7 +2,8 @@ import { lazy, Suspense } from 'react'
 import PatternWaves from '../components/reactbits/PatternWaves'
 import Hero from '../sections/home/Hero'
 import AboutUs from '../sections/home/AboutUs'
-import LatestDev from '../sections/home/LatestDev'
+import SponsorBelt from '../sections/home/SponsorBelt'
+import WhatWeDo from '../sections/home/WhatWeDo'
 
 const DroneScene = lazy(() => import('../components/drone/DroneScene'))
 
@@ -18,7 +19,8 @@ const Home = () => {
       <main className="relative z-10">
         <Hero />
         <AboutUs />
-        <LatestDev />
+        <SponsorBelt />
+        <WhatWeDo />
       </main>
     </>
   )
