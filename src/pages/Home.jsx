@@ -1,5 +1,5 @@
 import { lazy, Suspense } from 'react'
-import FluxLines from '../components/FluxLines'
+import FluxLines from '../components/reactbits/FluxLines'
 import Hero from '../sections/home/Hero'
 import AboutUs from '../sections/home/AboutUs'
 import LatestDev from '../sections/home/LatestDev'

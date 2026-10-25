@@ -1,5 +1,5 @@
 import { Link, useLocation } from 'react-router-dom'
-import PillNav from './PillNav'
+import PillNav from './reactbits/PillNav'
 import logoMark from '../assets/Home/logo-mark.png'
 
 const StarIcon = () => (
@@ -30,6 +30,8 @@ const Navbar = () => {
         items={NAV_ITEMS}
         activeHref={pathname}
         linkComponent={RouterLink}
+        theme="dark"
+        itemStyle="plain"
         bounce={0.37}
       />
     </header>
