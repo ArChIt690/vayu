@@ -1,27 +1,27 @@
-import LogoLoop from '../../components/reactbits/LogoLoop'
-import { SPONSORS } from '../../data/sponsors'
+import LogoLoop from "../../components/reactbits/LogoLoop";
+import { SPONSORS } from "../../data/sponsors";
 
 // White logo by default; the original colours fade in on hover
 const LOGOS = SPONSORS.map((sponsor) => ({
-  title: sponsor.name,
-  ariaLabel: sponsor.name,
-  node: (
-    <span className="relative block">
-      <img
-        src={sponsor.logoWhite}
-        alt=""
-        draggable={false}
-        className="block h-[var(--logoloop-logoHeight)] w-auto transition-opacity duration-300 group-hover/item:opacity-0"
-      />
-      <img
-        src={sponsor.logo}
-        alt=""
-        draggable={false}
-        className="absolute inset-0 block h-full w-auto opacity-0 transition-opacity duration-300 group-hover/item:opacity-100"
-      />
-    </span>
-  ),
-}))
+    title: sponsor.name,
+    ariaLabel: sponsor.name,
+    node: (
+        <span className="relative block">
+            <img
+                src={sponsor.logoWhite}
+                alt=""
+                draggable={false}
+                className="block h-[var(--logoloop-logoHeight)] w-auto transition-opacity duration-300 group-hover/item:opacity-0"
+            />
+            <img
+                src={sponsor.logo}
+                alt=""
+                draggable={false}
+                className="absolute inset-0 block h-full w-auto opacity-0 transition-opacity duration-300 group-hover/item:opacity-100"
+            />
+        </span>
+    ),
+}));
 
 const SponsorBelt = () => {
   return (
@@ -37,4 +37,4 @@ const SponsorBelt = () => {
   )
 }
 
-export default SponsorBelt
+export default SponsorBelt;

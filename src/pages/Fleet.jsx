@@ -1,38 +1,34 @@
-import PatternWaves from '../components/reactbits/PatternWaves'
-import DroneShowcase from '../sections/fleet/DroneShowcase'
-import Gallery from '../sections/fleet/Gallery'
-import { FLEET } from '../data/fleet'
+import DroneShowcase from "../sections/fleet/DroneShowcase";
+import Gallery from "../sections/fleet/Gallery";
+import { FLEET } from "../data/fleet";
 
 const Fleet = () => {
-  return (
-    <>
-      <div className="pointer-events-none fixed inset-0 z-0" aria-hidden="true">
-        <PatternWaves />
-      </div>
+    return (
+        <main className="relative z-10 mx-auto max-w-7xl px-4 pt-32 pb-12 sm:px-8 lg:pt-40">
+            <header className="max-w-3xl">
+                <p className="flex items-center gap-4 font-mono text-xs tracking-[0.3em] text-slate-300 uppercase">
+                    <span
+                        className="h-px w-10 bg-linear-to-r from-transparent to-sky-400"
+                        aria-hidden="true"
+                    />
+                    02 — Airborne Systems
+                </p>
+                <h1 className="mt-4 font-display text-4xl font-bold tracking-tight text-white uppercase sm:text-5xl lg:text-6xl">
+                    The VAYU Fleet
+                </h1>
+                <p className="mt-5 text-base leading-relaxed text-slate-200 sm:text-lg">
+                    Three purpose-built unmanned aerial platforms engineered for
+                    surveillance, heavy-lift delivery, and maritime rescue.
+                </p>
+            </header>
 
-      <main className="relative z-10 mx-auto max-w-7xl px-4 pt-32 pb-12 sm:px-8 lg:pt-40">
-        <header className="max-w-3xl">
-          <p className="flex items-center gap-4 font-mono text-xs tracking-[0.3em] text-slate-300 uppercase">
-            <span className="h-px w-10 bg-linear-to-r from-transparent to-sky-400" aria-hidden="true" />
-            02 — Airborne Systems
-          </p>
-          <h1 className="mt-4 font-display text-4xl font-bold tracking-tight text-white uppercase sm:text-5xl lg:text-6xl">
-            The VAYU Fleet
-          </h1>
-          <p className="mt-5 text-base leading-relaxed text-slate-200 sm:text-lg">
-            Three purpose-built unmanned aerial platforms engineered for surveillance, heavy-lift delivery, and maritime
-            rescue.
-          </p>
-        </header>
+            <div className="mt-14">
+                <DroneShowcase fleet={FLEET} />
+            </div>
 
-        <div className="mt-14">
-          <DroneShowcase fleet={FLEET} />
-        </div>
+            <Gallery />
+        </main>
+    );
+};
 
-        <Gallery />
-      </main>
-    </>
-  )
-}
-
-export default Fleet
+export default Fleet;
