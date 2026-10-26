@@ -1,12 +1,19 @@
 import TeamCard from '../sections/team/TeamCard'
 import { CAPTAIN, DOMAINS, LEADS } from '../data/team'
 
-const SubLabel = ({ children }) => (
-  <p className="flex items-center gap-3 font-mono text-xs font-bold tracking-[0.25em] text-sky-300 uppercase">
-    <span className="h-px w-5 bg-sky-400" aria-hidden="true" />
-    {children}
-  </p>
+// Small tag above a card in the row (shown on the lead and on the first member only)
+const Slot = ({ label, children }) => (
+  <div className="flex flex-col">
+    <p className={`mb-3 flex h-4 items-center gap-2 font-mono text-[10px] font-bold tracking-[0.25em] text-sky-300 uppercase ${label ? '' : 'invisible'}`}>
+      <span className="h-px w-4 bg-sky-400" aria-hidden="true" />
+      {label ?? 'Members'}
+    </p>
+    <div className="flex flex-1">{children}</div>
+  </div>
 )
+
+// Lead first, then members, all in one row
+const CardRow = ({ children }) => <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">{children}</div>
 
 const SectionHeader = ({ id, number, name, code, count }) => (
   <div className="flex flex-wrap items-end justify-between gap-4 border-b border-white/10 pb-5">
@@ -37,25 +44,20 @@ const Team = () => {
         </h1>
       </header>
 
-      {/* Command, laid out like the domains: captain row, then leads row */}
+      {/* Command, laid out like the domains: captain, then leads, in one row */}
       <section className="mt-20" aria-labelledby="domain-command">
         <SectionHeader id="domain-command" number="00" name="Squadron Command" code="Command // CMD-00" count={1 + LEADS.length} />
 
-        <div className="mt-8">
-          <SubLabel>Team Captain</SubLabel>
-          <div className="mt-5 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        <CardRow>
+          <Slot label="Captain">
             <TeamCard person={CAPTAIN} tier="captain" badge="Team Captain" />
-          </div>
-        </div>
-
-        <div className="mt-10">
-          <SubLabel>Leads</SubLabel>
-          <div className="mt-5 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {LEADS.map((lead) => (
-              <TeamCard key={lead.id} person={lead} tier="lead" badge={lead.role} />
-            ))}
-          </div>
-        </div>
+          </Slot>
+          {LEADS.map((lead, i) => (
+            <Slot key={lead.id} label={i === 0 ? 'Leads' : undefined}>
+              <TeamCard person={lead} tier="lead" badge={lead.role} />
+            </Slot>
+          ))}
+        </CardRow>
       </section>
 
       {/* Domains, Team Maverick style: numbered section, domain lead, then the team */}
@@ -72,21 +74,16 @@ const Team = () => {
                 count={domain.members.length}
               />
 
-              <div className="mt-8">
-                <SubLabel>Domain Lead</SubLabel>
-                <div className="mt-5 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+              <CardRow>
+                <Slot label="Lead">
                   <TeamCard person={lead} tier="domainLead" badge="Domain Lead" />
-                </div>
-              </div>
-
-              <div className="mt-10">
-                <SubLabel>Team Members</SubLabel>
-                <div className="mt-5 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-                  {members.map((member) => (
-                    <TeamCard key={member.id} person={member} tier="member" badge={member.badge} />
-                  ))}
-                </div>
-              </div>
+                </Slot>
+                {members.map((member, i) => (
+                  <Slot key={member.id} label={i === 0 ? 'Members' : undefined}>
+                    <TeamCard person={member} tier="member" badge={member.badge} />
+                  </Slot>
+                ))}
+              </CardRow>
             </section>
           )
         })}
