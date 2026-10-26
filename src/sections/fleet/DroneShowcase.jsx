@@ -12,14 +12,14 @@ const DroneCard = ({ drone, reverse }) => {
     return (
         <article
             id={drone.id}
-            className={`grid scroll-mt-28 gap-8 rounded-sm border border-white/10 bg-night-900/60 p-6 backdrop-blur-md sm:p-8 lg:gap-12 lg:p-10 ${
+            className={`grid scroll-mt-28 gap-8 rounded-2xl border border-white/10 bg-night-900/60 p-6 backdrop-blur-md sm:p-8 lg:gap-12 lg:p-10 ${
                 reverse ? "lg:grid-cols-[7fr_5fr]" : "lg:grid-cols-[5fr_7fr]"
             }`}
         >
             {/* Photo: alternates sides on desktop */}
             {/* self-start: the frame hugs the photo instead of stretching to the card's height */}
             <figure
-                className={`group relative self-start overflow-hidden rounded-sm border border-white/10 ${reverse ? "lg:order-last" : ""}`}
+                className={`group relative self-start overflow-hidden rounded-xl border border-white/10 ${reverse ? "lg:order-last" : ""}`}
             >
                 <img
                     src={drone.photo}
@@ -40,7 +40,7 @@ const DroneCard = ({ drone, reverse }) => {
                     Configuration: {drone.configuration}
                 </p>
 
-                <dl className="mt-6 grid grid-cols-2 gap-px overflow-hidden rounded-sm border border-white/10 bg-white/10">
+                <dl className="mt-6 grid grid-cols-2 gap-px overflow-hidden rounded-xl border border-white/10 bg-white/10">
                     {drone.stats.map((stat) => (
                         <div
                             key={stat.label}
@@ -127,7 +127,7 @@ const DroneCard = ({ drone, reverse }) => {
                             {drone.components.map((part) => (
                                 <div
                                     key={part.label}
-                                    className="grid gap-1 rounded-sm border border-white/10 bg-night-950/60 px-4 py-3 sm:grid-cols-[11rem_1fr] sm:gap-4"
+                                    className="grid gap-1 rounded-xl border border-white/10 bg-night-950/60 px-4 py-3 sm:grid-cols-[11rem_1fr] sm:gap-4"
                                 >
                                     <dt className="font-mono text-[11px] tracking-[0.15em] text-slate-400 uppercase">
                                         {part.label}

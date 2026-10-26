@@ -1,9 +1,96 @@
-// PLACEHOLDER: built after the Home page
+import TeamCard from '../sections/team/TeamCard'
+import { CAPTAIN, DOMAINS, LEADS } from '../data/team'
+
+const SubLabel = ({ children }) => (
+  <p className="flex items-center gap-3 font-mono text-xs font-bold tracking-[0.25em] text-sky-300 uppercase">
+    <span className="h-px w-5 bg-sky-400" aria-hidden="true" />
+    {children}
+  </p>
+)
+
+const SectionHeader = ({ id, number, name, code, count }) => (
+  <div className="flex flex-wrap items-end justify-between gap-4 border-b border-white/10 pb-5">
+    <div className="flex flex-wrap items-baseline gap-4">
+      <span className="font-mono text-sm text-sky-300">{number}</span>
+      <span className="text-slate-600" aria-hidden="true">/</span>
+      <h2 id={id} className="font-display text-2xl font-bold tracking-tight text-white uppercase sm:text-3xl">
+        {name}
+      </h2>
+      <span className="rounded-sm border border-white/15 px-2 py-1 font-mono text-[10px] tracking-[0.2em] text-slate-300 uppercase">
+        {code}
+      </span>
+    </div>
+    <span className="font-mono text-xs tracking-[0.2em] text-slate-400 uppercase">{count} Members</span>
+  </div>
+)
+
 const Team = () => {
   return (
-    <main className="relative z-10 flex min-h-svh flex-col items-center justify-center px-4 text-center">
-      <h1 className="font-display text-5xl font-bold">Team</h1>
-      <p className="mt-4 text-slate-400">Coming soon.</p>
+    <main className="relative z-10 mx-auto max-w-7xl px-4 pt-32 pb-24 sm:px-8 lg:pt-40">
+      <header className="max-w-3xl">
+        <p className="flex items-center gap-4 font-mono text-xs tracking-[0.3em] text-slate-300 uppercase">
+          <span className="h-px w-10 bg-linear-to-r from-transparent to-sky-400" aria-hidden="true" />
+          03 — Squadron Command
+        </p>
+        <h1 className="mt-4 font-display text-4xl font-bold tracking-tight text-white uppercase sm:text-5xl lg:text-6xl">
+          The People Behind the Flight
+        </h1>
+      </header>
+
+      {/* Command, laid out like the domains: captain row, then leads row */}
+      <section className="mt-20" aria-labelledby="domain-command">
+        <SectionHeader id="domain-command" number="00" name="Squadron Command" code="Command // CMD-00" count={1 + LEADS.length} />
+
+        <div className="mt-8">
+          <SubLabel>Team Captain</SubLabel>
+          <div className="mt-5 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            <TeamCard person={CAPTAIN} tier="captain" badge="Team Captain" />
+          </div>
+        </div>
+
+        <div className="mt-10">
+          <SubLabel>Leads</SubLabel>
+          <div className="mt-5 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            {LEADS.map((lead) => (
+              <TeamCard key={lead.id} person={lead} tier="lead" badge={lead.role} />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Domains, Team Maverick style: numbered section, domain lead, then the team */}
+      <div className="mt-24 space-y-24">
+        {DOMAINS.map((domain, index) => {
+          const [lead, ...members] = domain.members
+          return (
+            <section key={domain.code} aria-labelledby={`domain-${index}`}>
+              <SectionHeader
+                id={`domain-${index}`}
+                number={String(index + 1).padStart(2, '0')}
+                name={domain.name}
+                code={domain.code}
+                count={domain.members.length}
+              />
+
+              <div className="mt-8">
+                <SubLabel>Domain Lead</SubLabel>
+                <div className="mt-5 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+                  <TeamCard person={lead} tier="domainLead" badge="Domain Lead" />
+                </div>
+              </div>
+
+              <div className="mt-10">
+                <SubLabel>Team Members</SubLabel>
+                <div className="mt-5 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+                  {members.map((member) => (
+                    <TeamCard key={member.id} person={member} tier="member" badge={member.badge} />
+                  ))}
+                </div>
+              </div>
+            </section>
+          )
+        })}
+      </div>
     </main>
   )
 }
