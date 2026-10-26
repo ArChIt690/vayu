@@ -219,6 +219,7 @@ const CircularCarousel = ({
   captions = false,
   onChange,
   onItemClick,
+  syncRef,
   className = '',
   style
 }) => {
@@ -275,6 +276,9 @@ const CircularCarousel = ({
   const wakeRef = useRef(() => {});
   const measureRef = useRef(() => {});
   const activeRef = useRef(0);
+  // VAYU addition: optional { current: degrees } added to the ring's rotation (see Gallery.jsx)
+  const syncPropRef = useRef(syncRef);
+  syncPropRef.current = syncRef;
   const [active, setActive] = useState(0);
   const [ready, setReady] = useState(false);
   const [dragging, setDragging] = useState(false);
@@ -568,7 +572,9 @@ const CircularCarousel = ({
         const p = easeOut(clamp(elapsed / INTRO_LENGTH.assemble, 0, 1));
         spinOffset = -32 * state.dir * (1 - p);
       }
-      const angle = state.angle + spinOffset;
+      const angle = state.angle + spinOffset + (syncPropRef.current?.current ?? 0);
+      // VAYU addition: publish the ring's final angle so the parked drone can match it
+      if (syncPropRef.current) syncPropRef.current.angle = angle;
       const R = s.radius * swell;
 
       if (s.axis === 'x') {
@@ -630,6 +636,8 @@ const CircularCarousel = ({
       if (!raf && visible && !document.hidden) raf = requestAnimationFrame(frame);
     };
     wakeRef.current = wake;
+    // VAYU addition: let the owner of syncRef redraw the ring after changing it
+    if (syncPropRef.current) syncPropRef.current.wake = wake;
 
     const onVisibility = () => {
       if (document.hidden) {

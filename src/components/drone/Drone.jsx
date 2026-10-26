@@ -216,9 +216,12 @@ const Motor = ({ a }) => (
 
 const Propeller = ({ a, spin, speedRef }) => {
   const ref = useRef()
+  const blur = useRef()
 
   useFrame((_, delta) => {
     ref.current.rotation.y += spin * speedRef.current * delta
+    // Motion-blur disc only while the props are actually spinning
+    blur.current.visible = Math.abs(speedRef.current) > 1
   })
 
   return (
@@ -235,7 +238,7 @@ const Propeller = ({ a, spin, speedRef }) => {
           <mesh geometry={a.blade3d} material={a.blade} rotation-x={spin * 0.2} />
         </group>
       ))}
-      <mesh material={a.blur} rotation-x={-Math.PI / 2}>
+      <mesh ref={blur} material={a.blur} rotation-x={-Math.PI / 2}>
         <ringGeometry args={[0.05, PROP_LENGTH, 48]} />
       </mesh>
     </group>

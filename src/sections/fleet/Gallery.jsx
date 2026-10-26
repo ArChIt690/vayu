@@ -1,4 +1,4 @@
-import { lazy, Suspense, useEffect, useState } from "react";
+import { lazy, Suspense, useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import CircularCarousel from "../../components/reactbits/CircularCarousel";
 import { FLEET } from "../../data/fleet";
@@ -18,6 +18,9 @@ const items = Array.from({ length: 4 }, () => BASE_ITEMS).flat();
 
 const Gallery = () => {
     const [open, setOpen] = useState(null);
+    // Shared by the photo arch and the parked drone: `current` = extra turn from dragging the drone,
+    // `angle` = the arch's final angle (written by the carousel), `wake` = redraw the arch
+    const syncRef = useRef(0);
 
     useEffect(() => {
         if (!open) return undefined;
@@ -36,14 +39,14 @@ const Gallery = () => {
                 Gallery
             </h2>
 
-            {/* Panorama: cards curve inward around the viewer; click a card to open it full size */}
+            {/* Panorama tilted into an arch (centre high, ends curving down); click a card to open it full size */}
             <div
                 className="mt-10"
-                style={{ width: "100%", height: "560px", position: "relative" }}
+                style={{ width: "100%", height: "460px", position: "relative" }}
             >
                 <CircularCarousel
                     items={items}
-                    preset="panorama"
+                    preset="panorama" tilt={-14}
                     intro="rise"
                     cardWidth={220}
                     aspectRatio={0.8}
@@ -58,6 +61,7 @@ const Gallery = () => {
                     pauseOnHover
                     focusOnClick={false}
                     onItemClick={(item) => setOpen(item)}
+                    syncRef={syncRef}
                     draggable
                     parallax={0.3}
                     stretch={0.5}
@@ -105,11 +109,11 @@ const Gallery = () => {
                 )}
             </AnimatePresence>
 
-            {/* Showroom drone: turns slowly; can still be dragged to rotate */}
-            <div className="mt-16">
-                <div className="mx-auto h-[420px] max-w-3xl cursor-grab active:cursor-grabbing sm:h-[500px]">
+            {/* Parked drone on a landing pad, tucked under the arch; turns with the arch, drag to turn both */}
+            <div className="relative z-10 -mt-48 sm:-mt-56">
+                <div className="mx-auto h-[380px] max-w-xl cursor-grab active:cursor-grabbing sm:h-[440px]">
                     <Suspense fallback={null}>
-                        <DroneViewer />
+                        <DroneViewer syncRef={syncRef} />
                     </Suspense>
                 </div>
             </div>
