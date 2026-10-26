@@ -11,6 +11,23 @@
     --color-night-800: #0d1428;
 }
 
+/* Hide default cursor on desktop devices with fine pointers */
+@media (pointer: fine) {
+    *,
+    *::before,
+    *::after,
+    html,
+    body,
+    a,
+    button,
+    input,
+    select,
+    textarea,
+    label {
+        cursor: none !important;
+    }
+}
+
 html {
     color-scheme: dark;
     scroll-behavior: smooth;

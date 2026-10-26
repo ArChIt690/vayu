@@ -3,6 +3,7 @@ import { Route, Routes } from "react-router-dom";
 import { MotionConfig } from "motion/react";
 import GradientASCII from "./components/reactbits/GradientASCII";
 import AltitudeIndicator from "./components/AltitudeIndicator";
+import CustomCursor from "./components/CustomCursor";
 import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
 import ScrollToTop from "./components/ScrollToTop";
@@ -16,6 +17,7 @@ const App = () => {
     return (
         <MotionConfig reducedMotion="user">
             <ScrollToTop />
+            <CustomCursor />
             {/* Persistent static background across all routes */}
             <div
                 className="pointer-events-none fixed inset-0 z-0"
