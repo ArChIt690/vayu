@@ -38,7 +38,8 @@ const AltitudeIndicator = () => {
 
     return (
         <div
-            className={`pointer-events-none fixed top-1/2 right-2 z-40 flex -translate-y-1/2 flex-col items-end gap-3 font-gauge transition-opacity duration-500 sm:right-5 ${
+            id="altitude-indicator"
+            className={`pointer-events-none fixed top-1/2 right-2 z-40 hidden -translate-y-1/2 flex-col items-end gap-3 font-gauge transition-opacity duration-500 md:flex sm:right-5 ${
                 scrollable ? "opacity-100" : "opacity-0"
             }`}
             aria-hidden="true"

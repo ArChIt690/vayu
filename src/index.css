@@ -39,6 +39,13 @@ html::-webkit-scrollbar {
     display: none;
 }
 
+/* Hide custom scroll bar / altitude indicator on mobile and touch devices */
+@media (pointer: coarse), (max-width: 767px) {
+    #altitude-indicator {
+        display: none !important;
+    }
+}
+
 body {
     @apply bg-night-950 font-sans text-slate-100 antialiased;
     background-image:
