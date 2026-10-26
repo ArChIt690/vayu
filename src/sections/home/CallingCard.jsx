@@ -12,8 +12,8 @@ const CallingCard = () => {
             />
 
             <div className="relative mx-auto max-w-5xl px-4 sm:px-8">
-                {/* Main Card Frame using rounded-sm border radius */}
-                <div className="relative isolate overflow-hidden rounded-sm border border-white/10 bg-night-900/60 p-6 text-center backdrop-blur-md sm:p-10 lg:p-12">
+                {/* Main Card Frame using 16px corners */}
+                <div className="relative isolate overflow-hidden rounded-2xl border border-white/10 bg-night-900/60 p-6 text-center backdrop-blur-md sm:p-10 lg:p-12">
                     {/* Subtle blue ambient backlights */}
                     <div
                         className="pointer-events-none absolute -top-24 left-1/2 -z-10 h-64 w-full max-w-xl -translate-x-1/2 bg-[radial-gradient(ellipse_at_top,rgba(56,189,248,0.14),transparent_70%)]"
