@@ -118,7 +118,7 @@ export const FLEET = [
     {
         id: "sagar",
         name: "Sagar",
-        callsign: "Saagr",
+        callsign: "Sagar",
         role: "Maritime & Water Rescue",
         configuration: "Sealed Marine Quadcopter",
         photo: sagarPhoto,
