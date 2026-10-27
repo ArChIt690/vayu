@@ -5,12 +5,13 @@ import Drone from './Drone'
 import { DRONE_SCALE, LandingPad, PadSceneLights } from './DroneViewer'
 
 const { damp } = THREE.MathUtils
-const HOVER_HEIGHT = 1.1 // above the pad, in scene units
+const HOVER_HEIGHT = 1.65 // above the pad, in scene units
 const CRUISE_PROP_SPEED = 34
 const LIFT_AT_PROP_SPEED = 22 // props must spin up this far before the drone leaves the pad
+const DRAG_RADIANS_PER_PX = 0.01
 
 // Parked on the pad until `launched` turns true, then: props spin up, lift off, hover
-const LaunchRig = ({ launched }) => {
+const LaunchRig = ({ launched, yawRef }) => {
   const group = useRef()
   const propSpeed = useRef(0)
   const height = useRef(0)
@@ -30,6 +31,8 @@ const LaunchRig = ({ launched }) => {
     group.current.position.y = height.current + bob
     group.current.rotation.z = reduceMotion ? 0 : Math.sin(t * 1.3) * 0.03 * up
     group.current.rotation.x = reduceMotion ? 0 : Math.sin(t * 0.9) * 0.02 * up
+    // Turned by dragging: left/right only
+    group.current.rotation.y = yawRef.current
   })
 
   return (
@@ -41,20 +44,41 @@ const LaunchRig = ({ launched }) => {
   )
 }
 
-const DroneLaunch = ({ launched }) => (
-  <Canvas
-    camera={{ position: [0, 1.9, 5.6], fov: 35 }}
-    dpr={[1, 1.75]}
-    gl={{ alpha: true, antialias: true }}
-    onCreated={({ camera }) => camera.lookAt(0, 0.45, 0)}
-  >
-    <PadSceneLights />
-    {/* Turned slightly so the drone doesn't face the camera head-on */}
-    <group rotation-y={-0.5}>
-      <LaunchRig launched={launched} />
-      <LandingPad />
-    </group>
-  </Canvas>
-)
+// Drag left/right to turn the drone (not the pad), parked or hovering
+const DroneLaunch = ({ launched }) => {
+  const yawRef = useRef(0)
+  const drag = useRef(null)
+
+  const onPointerDown = (event) => {
+    drag.current = event.clientX
+    event.currentTarget.setPointerCapture(event.pointerId)
+  }
+  const onPointerMove = (event) => {
+    if (drag.current === null) return
+    yawRef.current += (event.clientX - drag.current) * DRAG_RADIANS_PER_PX
+    drag.current = event.clientX
+  }
+  const onPointerUp = () => {
+    drag.current = null
+  }
+
+  return (
+    <div className="size-full touch-pan-y" onPointerDown={onPointerDown} onPointerMove={onPointerMove} onPointerUp={onPointerUp} onPointerCancel={onPointerUp}>
+      <Canvas
+        camera={{ position: [0, 2.2, 6.2], fov: 35 }}
+        dpr={[1, 1.75]}
+        gl={{ alpha: true, antialias: true }}
+        onCreated={({ camera }) => camera.lookAt(0, 0.7, 0)}
+      >
+        <PadSceneLights />
+        {/* Turned slightly so the drone doesn't face the camera head-on */}
+        <group rotation-y={-0.5}>
+          <LaunchRig launched={launched} yawRef={yawRef} />
+          <LandingPad />
+        </group>
+      </Canvas>
+    </div>
+  )
+}
 
 export default DroneLaunch
