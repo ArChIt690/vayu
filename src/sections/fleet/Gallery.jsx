@@ -46,7 +46,8 @@ const Gallery = () => {
             >
                 <CircularCarousel
                     items={items}
-                    preset="panorama" tilt={-14}
+                    preset="panorama"
+                    tilt={-14}
                     intro="rise"
                     cardWidth={220}
                     aspectRatio={0.8}
@@ -90,18 +91,24 @@ const Gallery = () => {
                             initial={{ scale: 0.7, opacity: 0 }}
                             animate={{ scale: 1, opacity: 1 }}
                             exit={{ scale: 0.7, opacity: 0 }}
-                            transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+                            transition={{
+                                duration: 0.4,
+                                ease: [0.22, 1, 0.36, 1],
+                            }}
                             className="flex max-h-full flex-col items-center"
                         >
                             <img
                                 src={open.src}
                                 alt={open.alt}
-                                className="max-h-[80vh] w-auto rounded-2xl border border-white/10 object-contain shadow-2xl"
+                                className="max-h-[80vh] w-auto rounded-sm border border-white/10 object-contain shadow-2xl"
                             />
                             <figcaption className="mt-4 text-center">
-                                <span className="font-display text-lg font-bold text-white uppercase">{open.title}</span>
+                                <span className="font-display text-lg font-bold text-white uppercase">
+                                    {open.title}
+                                </span>
                                 <span className="mt-1 block font-mono text-xs tracking-[0.2em] text-slate-400 uppercase">
-                                    {open.subtitle} · Click or press Esc to close
+                                    {open.subtitle} · Click or press Esc to
+                                    close
                                 </span>
                             </figcaption>
                         </motion.figure>
