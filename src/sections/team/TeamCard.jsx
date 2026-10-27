@@ -259,9 +259,9 @@ const TeamCard = ({ person, tier = "member", badge }) => {
                     {person.name}
                 </h3>
 
-                {/* Callsign */}
+                {/* Callsign // Name */}
                 <p className="mt-1 font-mono text-[11px] tracking-[0.2em] text-slate-500 uppercase">
-                    Callsign // {person.callsign}
+                    Callsign // {person.name}
                 </p>
 
                 {/* Area of Expertise */}
