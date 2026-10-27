@@ -36,15 +36,12 @@ const TIERS = {
 const METALS = {
     gold: {
         stops: ["#fff6cc", "#f5c542", "#b7791f", "#fde68a"],
-        glow: "rgba(245,197,66,0.55)",
     },
     silver: {
         stops: ["#ffffff", "#cbd5e1", "#64748b", "#f1f5f9"],
-        glow: "rgba(226,232,240,0.5)",
     },
     steel: {
         stops: ["#cbd5e1", "#64748b", "#334155", "#94a3b8"],
-        glow: "rgba(148,163,184,0.35)",
     },
 };
 
@@ -103,10 +100,9 @@ const Avatar = ({ person, tier }) => {
 
     return (
         <div
-            className={`group/avatar relative z-10 cursor-pointer rounded-full p-[5px] transition duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] hover:scale-[1.04] ${avatar}`}
+            className={`relative z-10 rounded-full p-[5px] ${avatar}`}
             style={{
                 background: `linear-gradient(135deg, ${a} 0%, ${b} 35%, ${c} 70%, ${a} 100%)`,
-                "--avatar-glow": METALS[metal].glow,
             }}
         >
             {/* Captain only: light sweeping round the gold ring */}
@@ -118,14 +114,14 @@ const Avatar = ({ person, tier }) => {
                     <span className="absolute -inset-1/2 animate-[spin_5s_linear_infinite] bg-[conic-gradient(from_0deg,transparent_0deg,rgba(255,255,255,0.95)_30deg,transparent_70deg)] motion-reduce:animate-none" />
                 </span>
             )}
-            <span className="absolute inset-0 rounded-full shadow-[0_0_30px_var(--avatar-glow),inset_0_0_15px_rgba(0,0,0,0.9)] transition-shadow duration-500 group-hover/avatar:shadow-[0_0_45px_var(--avatar-glow),0_0_0_4px_var(--avatar-glow)]" />
+            <span className="absolute inset-0 rounded-full shadow-[inset_0_0_15px_rgba(0,0,0,0.9)]" />
             <div className="relative size-full overflow-hidden rounded-full bg-night-900">
                 {person.photo ? (
                     <img
                         src={person.photo}
                         alt={person.name}
                         loading="lazy"
-                        className="size-full object-cover transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover/avatar:scale-[1.08]"
+                        className="size-full object-cover"
                     />
                 ) : (
                     <span className="grid size-full place-items-center font-display text-2xl font-bold text-slate-200">
@@ -233,20 +229,17 @@ const TeamCard = ({ person, tier = "member", badge }) => {
                         </div>
                     )}
 
-                    {/* Crest grows and glows when the card is hovered */}
+                    {/* Crest behind the photo */}
                     <div
                         className={`pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-[46%] transition duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:-translate-y-[52%] group-hover:scale-[1.08] ${t.crest}`}
                         style={{
-                            filter: "drop-shadow(0 4px 12px rgba(0,0,0,0.8)) drop-shadow(0 0 10px var(--crest-glow))",
-                            "--crest-glow": METALS[t.metal].glow,
+                            filter: "drop-shadow(0 4px 12px rgba(0,0,0,0.8))",
                         }}
                     >
-                        <div className="transition duration-500 group-hover:brightness-125">
-                            <Crest
-                                metal={t.metal}
-                                id={`${person.id}-${tier}`}
-                            />
-                        </div>
+                        <Crest
+                            metal={t.metal}
+                            id={`${person.id}-${tier}`}
+                        />
                     </div>
                     <Avatar person={person} tier={tier} />
                 </div>
