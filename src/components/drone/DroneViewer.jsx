@@ -4,12 +4,12 @@ import { Environment, Lightformer } from '@react-three/drei'
 import * as THREE from 'three'
 import Drone from './Drone'
 
-const DRONE_SCALE = 1.1
+export const DRONE_SCALE = 1.1
 // Flip to -1 if the drone should turn the opposite way to the photo arch
 const SYNC_DIRECTION = 1
 // Bottom of the landing skids in drone units (skid tube centre -0.375, radius 0.017)
 const SKID_BOTTOM = -0.392
-const PAD_TOP = SKID_BOTTOM * DRONE_SCALE
+export const PAD_TOP = SKID_BOTTOM * DRONE_SCALE
 
 // Minimal landing pad drawn on a canvas: dark disc, one thin ring and a thin "H"
 const usePadTexture = () =>
@@ -51,7 +51,7 @@ const usePadTexture = () =>
     return texture
   }, [])
 
-const LandingPad = () => {
+export const LandingPad = () => {
   const map = usePadTexture()
 
   return (
@@ -80,7 +80,22 @@ const LandingPad = () => {
   )
 }
 
-// Drone parked on a landing pad: props stopped (speed 0), no auto-rotation; drag to look around
+// Lighting + studio reflections shared by the pad scenes (Fleet gallery and Sponsor Us)
+export const PadSceneLights = () => (
+  <>
+    <hemisphereLight args={['#93c5fd', '#0b1020', 0.9]} />
+    <directionalLight position={[4, 6, 5]} intensity={3} />
+    <directionalLight position={[-3, 2, -5]} intensity={1.6} color="#7dd3fc" />
+    <pointLight position={[-3, 0.5, 3]} intensity={18} color="#38bdf8" />
+
+    <Environment resolution={256} frames={1}>
+      <Lightformer form="rect" intensity={3} position={[0, 5, 2]} scale={[8, 3, 1]} rotation-x={Math.PI / 2} />
+      <Lightformer form="rect" intensity={2} color="#7dd3fc" position={[-5, 1, -1]} scale={[3, 6, 1]} rotation-y={Math.PI / 2} />
+      <Lightformer form="rect" intensity={1.5} position={[5, 1, 1]} scale={[3, 6, 1]} rotation-y={-Math.PI / 2} />
+    </Environment>
+  </>
+)
+
 const DRAG_DEGREES_PER_PX = 0.4
 
 // Drone + pad turn to the same angle as the photo arch (read from syncRef every frame)
@@ -120,16 +135,7 @@ const DroneViewer = ({ syncRef }) => {
   return (
     <div className="size-full touch-pan-y" onPointerDown={onPointerDown} onPointerMove={onPointerMove} onPointerUp={onPointerUp} onPointerCancel={onPointerUp}>
       <Canvas camera={{ position: [0, 1.7, 4.8], fov: 35 }} dpr={[1, 1.75]} gl={{ alpha: true, antialias: true }} onCreated={({ camera }) => camera.lookAt(0, 0.05, 0)}>
-        <hemisphereLight args={['#93c5fd', '#0b1020', 0.9]} />
-        <directionalLight position={[4, 6, 5]} intensity={3} />
-        <directionalLight position={[-3, 2, -5]} intensity={1.6} color="#7dd3fc" />
-        <pointLight position={[-3, 0.5, 3]} intensity={18} color="#38bdf8" />
-
-        <Environment resolution={256} frames={1}>
-          <Lightformer form="rect" intensity={3} position={[0, 5, 2]} scale={[8, 3, 1]} rotation-x={Math.PI / 2} />
-          <Lightformer form="rect" intensity={2} color="#7dd3fc" position={[-5, 1, -1]} scale={[3, 6, 1]} rotation-y={Math.PI / 2} />
-          <Lightformer form="rect" intensity={1.5} position={[5, 1, 1]} scale={[3, 6, 1]} rotation-y={-Math.PI / 2} />
-        </Environment>
+        <PadSceneLights />
 
         <SyncedRig syncRef={syncRef}>
           <group scale={DRONE_SCALE}>
