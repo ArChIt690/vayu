@@ -46,7 +46,7 @@ const CallingCard = () => {
 
                         {/* Request a Workshop Secondary Button */}
                         <a
-                            href="mailto:teamvayu.iem@gmail.com?subject=Workshop%20Request%20-%20Team%20VAYU"
+                            href="mailto:drone.vayu@iem.edu.in?subject=Workshop%20Request%20-%20Team%20VAYU"
                             className="inline-flex items-center gap-2 rounded-sm border border-white/20 bg-night-950/40 px-4 py-2.5 font-mono text-sm font-medium text-white transition hover:border-sky-400/50 hover:bg-white/5 hover:text-sky-300 sm:px-5"
                         >
                             <span>Request a Workshop</span>
@@ -66,7 +66,7 @@ const CallingCard = () => {
                     <div className="flex flex-wrap items-center justify-center gap-6 font-mono text-xs text-slate-300 sm:gap-8 sm:text-sm">
                         {/* Email */}
                         <a
-                            href="mailto:teamvayu.iem@gmail.com"
+                            href="mailto:drone.vayu@iem.edu.in"
                             className="flex items-center gap-2 transition-colors hover:text-sky-300"
                         >
                             <svg
@@ -86,14 +86,11 @@ const CallingCard = () => {
                                 />
                                 <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
                             </svg>
-                            <span>teamvayu.iem@gmail.com</span>
+                            <span>drone.vayu@iem.edu.in</span>
                         </a>
 
                         {/* Phone */}
-                        <a
-                            href="tel:+919284383901"
-                            className="flex items-center gap-2 transition-colors hover:text-sky-300"
-                        >
+                        <div className="flex items-center gap-2">
                             <svg
                                 viewBox="0 0 24 24"
                                 fill="none"
@@ -104,8 +101,22 @@ const CallingCard = () => {
                             >
                                 <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
                             </svg>
-                            <span>+91 9284383901 / +91 9028401706</span>
-                        </a>
+                            <span>
+                                <a
+                                    href="tel:+919477008746"
+                                    className="transition-colors hover:text-sky-300"
+                                >
+                                    +91 94770 08746
+                                </a>
+                                {" / "}
+                                <a
+                                    href="tel:+918100339923"
+                                    className="transition-colors hover:text-sky-300"
+                                >
+                                    +91 81003 39923
+                                </a>
+                            </span>
+                        </div>
 
                         {/* Institution / Location */}
                         <div className="flex items-center gap-2">

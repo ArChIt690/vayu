@@ -106,7 +106,7 @@ const AboutUs = () => {
                             href={INSTAGRAM_URL}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="group mt-6 inline-flex items-center gap-2 rounded-sm border border-sky-400/50 bg-sky-400/10 px-4 py-2.5 font-mono text-sm text-sky-300 transition hover:bg-sky-400 hover:text-night-950"
+                            className="group mt-6 inline-flex items-center gap-2 rounded-sm bg-sky-400 px-3 py-2.5 font-mono text-sm font-medium whitespace-nowrap text-night-950 transition hover:bg-sky-300 sm:px-4"
                         >
                             Follow @teamvayu.iemk
                             <span
