@@ -22,7 +22,12 @@ const Fleet = () => {
                 </p>
             </header>
 
-            <div className="mt-14">
+            <div
+                className="mt-10 mb-14 h-px w-full bg-white/10"
+                aria-hidden="true"
+            />
+
+            <div className="relative">
                 <DroneShowcase fleet={FLEET} />
             </div>
 
