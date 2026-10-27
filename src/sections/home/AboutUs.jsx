@@ -1,7 +1,7 @@
 import { ABOUT_FEATURES, INSTAGRAM_URL } from "../../data/about";
 
 const card =
-    "rounded-2xl border border-white/10 bg-night-900/60 backdrop-blur-md";
+    "rounded-sm border border-white/10 bg-night-900/60 backdrop-blur-md";
 
 const AboutUs = () => {
     return (

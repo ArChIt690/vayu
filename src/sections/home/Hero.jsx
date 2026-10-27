@@ -30,6 +30,7 @@ const Hero = () => {
                     variants={container}
                     initial="hidden"
                     animate="show"
+                    className="z-10"
                 >
                     <motion.p
                         variants={item}
@@ -80,7 +81,7 @@ const Hero = () => {
 
                     <motion.dl
                         variants={item}
-                        className="mt-12 grid max-w-2xl grid-cols-2 gap-px overflow-hidden rounded-2xl border border-white/10 bg-white/10 sm:grid-cols-4"
+                        className="mt-12 grid max-w-2xl grid-cols-2 gap-px overflow-hidden rounded-sm border border-white/10 bg-white/10 sm:grid-cols-4"
                     >
                         {HERO_STATS.map((stat) => (
                             <div
