@@ -11,8 +11,8 @@ export const FLEET = [
         configuration: "Quadcopter Platform",
         photo: drishtiPhoto,
         stats: [
-            { label: "Endurance", value: "28 Minutes" },
-            { label: "Range", value: "6.5 km Telemetry" },
+            { label: "Endurance", value: "28 Mins" },
+            { label: "Range", value: "6.5 km" },
             { label: "Max Speed", value: "65 km/h" },
             { label: "MTOW", value: "3.2 kg" },
         ],
@@ -67,9 +67,9 @@ export const FLEET = [
         configuration: "Hexacopter Platform",
         photo: rakshakPhoto,
         stats: [
-            { label: "Payload", value: "2.0 kg Payload" },
-            { label: "Endurance", value: "22 Minutes (Full Load)" },
-            { label: "Range", value: "8.0 km Telemetry" },
+            { label: "Payload", value: "2.0 kg " },
+            { label: "Endurance", value: "22 Mins" },
+            { label: "Range", value: "8.0 km" },
             { label: "MTOW", value: "8.4 kg" },
         ],
         headline:
@@ -123,9 +123,9 @@ export const FLEET = [
         configuration: "Sealed Marine Quadcopter",
         photo: sagarPhoto,
         stats: [
-            { label: "Protection", value: "IP66 Water Resistant" },
-            { label: "Endurance", value: "25 Minutes" },
-            { label: "Drop Capacity", value: "Inflatable Buoy" },
+            { label: "Protection", value: "IP66" },
+            { label: "Endurance", value: "25 Mins" },
+            { label: "Capacity", value: "Buoy" },
             { label: "MTOW", value: "3.8 kg" },
         ],
         headline:

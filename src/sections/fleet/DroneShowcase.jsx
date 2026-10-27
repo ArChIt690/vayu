@@ -1,14 +1,4 @@
-import { useState } from "react";
-
-const TABS = [
-    { id: "capabilities", label: "Capabilities" },
-    { id: "components", label: "Specs & Components" },
-];
-
 const DroneCard = ({ drone, reverse }) => {
-    const [tab, setTab] = useState(null);
-    const panelId = `${drone.id}-panel`;
-
     return (
         <div className="relative">
             {/* Timeline node dot on the line */}
@@ -67,9 +57,6 @@ const DroneCard = ({ drone, reverse }) => {
                             <h2 className="font-display text-3xl xs:text-4xl sm:text-5xl font-bold text-white uppercase mb-2">
                                 {drone.name}
                             </h2>
-                            <p className="text-sky-300 font-mono text-xs font-semibold tracking-[0.2em] uppercase mb-4 sm:mb-5">
-                                {drone.role} // {drone.configuration}
-                            </p>
                             <p className="font-semibold text-white/90 text-sm sm:text-base mb-3 leading-snug">
                                 {drone.headline}
                             </p>
@@ -91,109 +78,6 @@ const DroneCard = ({ drone, reverse }) => {
                                         </p>
                                     </div>
                                 ))}
-                            </div>
-
-                            {/* Capabilities & Components Tabs */}
-                            <div className="mt-6 border-t border-white/10 pt-4">
-                                <div
-                                    className="flex flex-wrap items-center justify-between gap-2 border-b border-white/10 pb-2"
-                                    role="tablist"
-                                    aria-label={`${drone.name} specifications`}
-                                >
-                                    <div className="flex gap-2">
-                                        {TABS.map((t) => {
-                                            const isActive = tab === t.id;
-                                            return (
-                                                <button
-                                                    key={t.id}
-                                                    type="button"
-                                                    role="tab"
-                                                    id={`${drone.id}-${t.id}-tab`}
-                                                    aria-selected={isActive}
-                                                    aria-controls={panelId}
-                                                    onClick={() =>
-                                                        setTab(
-                                                            isActive
-                                                                ? null
-                                                                : t.id,
-                                                        )
-                                                    }
-                                                    className={`rounded-sm px-3 py-1.5 font-mono text-xs tracking-wider uppercase transition-colors ${
-                                                        isActive
-                                                            ? "border border-sky-400/40 bg-sky-400/15 text-sky-300"
-                                                            : "border border-white/10 text-slate-400 hover:border-white/20 hover:text-white"
-                                                    }`}
-                                                >
-                                                    {t.label}{" "}
-                                                    <span className="text-[10px]">
-                                                        {isActive ? "▲" : "▼"}
-                                                    </span>
-                                                </button>
-                                            );
-                                        })}
-                                    </div>
-                                    {tab && (
-                                        <button
-                                            type="button"
-                                            onClick={() => setTab(null)}
-                                            className="font-mono text-[11px] tracking-wider text-slate-400 uppercase hover:text-white"
-                                        >
-                                            Hide Specs
-                                        </button>
-                                    )}
-                                </div>
-
-                                {tab && (
-                                    <div
-                                        id={panelId}
-                                        role="tabpanel"
-                                        aria-labelledby={`${drone.id}-${tab}-tab`}
-                                        className="pt-4"
-                                    >
-                                        {tab === "capabilities" ? (
-                                            <ul className="space-y-2.5">
-                                                {drone.capabilities.map(
-                                                    (item) => (
-                                                        <li
-                                                            key={item}
-                                                            className="flex gap-2.5 text-xs text-slate-200 sm:text-sm"
-                                                        >
-                                                            <svg
-                                                                viewBox="0 0 24 24"
-                                                                fill="none"
-                                                                stroke="currentColor"
-                                                                strokeWidth="2.5"
-                                                                className="mt-0.5 size-4 shrink-0 text-sky-400"
-                                                                aria-hidden="true"
-                                                            >
-                                                                <path d="M5 12.5l4.5 4.5L19 7.5" />
-                                                            </svg>
-                                                            <span>{item}</span>
-                                                        </li>
-                                                    ),
-                                                )}
-                                            </ul>
-                                        ) : (
-                                            <dl className="grid gap-2">
-                                                {drone.components.map(
-                                                    (part) => (
-                                                        <div
-                                                            key={part.label}
-                                                            className="grid gap-1 rounded-sm border border-white/10 bg-night-950/60 px-3.5 py-2.5 text-xs sm:grid-cols-[10rem_1fr] sm:gap-3 sm:text-sm"
-                                                        >
-                                                            <dt className="font-mono text-[10px] font-bold tracking-[0.15em] text-slate-400 uppercase sm:text-[11px]">
-                                                                {part.label}
-                                                            </dt>
-                                                            <dd className="text-slate-100">
-                                                                {part.value}
-                                                            </dd>
-                                                        </div>
-                                                    ),
-                                                )}
-                                            </dl>
-                                        )}
-                                    </div>
-                                )}
                             </div>
                         </div>
                     </article>

@@ -21,7 +21,7 @@ const CardRow = ({ children }) => (
     </div>
 );
 
-const SectionHeader = ({ id, number, name, code, count }) => (
+const SectionHeader = ({ id, number, name, count }) => (
     <div className="flex flex-wrap items-end justify-between gap-4 border-b border-white/10 pb-5">
         <div className="flex flex-wrap items-baseline gap-4">
             <span className="font-mono text-sm text-sky-300">{number}</span>
@@ -34,9 +34,6 @@ const SectionHeader = ({ id, number, name, code, count }) => (
             >
                 {name}
             </h2>
-            <span className="rounded-sm border border-white/15 px-2 py-1 font-mono text-[10px] tracking-[0.2em] text-slate-300 uppercase">
-                {code}
-            </span>
         </div>
         <span className="font-mono text-xs tracking-[0.2em] text-slate-400 uppercase">
             {count} Members
@@ -66,7 +63,6 @@ const Team = () => {
                     id="domain-command"
                     number="00"
                     name="Squadron Command"
-                    code="Command // CMD-00"
                     count={1 + LEADS.length}
                 />
 
@@ -99,14 +95,13 @@ const Team = () => {
                     const [lead, ...members] = domain.members;
                     return (
                         <section
-                            key={domain.code}
+                            key={domain.code ?? domain.name}
                             aria-labelledby={`domain-${index}`}
                         >
                             <SectionHeader
                                 id={`domain-${index}`}
                                 number={String(index + 1).padStart(2, "0")}
                                 name={domain.name}
-                                code={domain.code}
                                 count={domain.members.length}
                             />
 
