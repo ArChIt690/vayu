@@ -11,7 +11,7 @@ const LIFT_AT_PROP_SPEED = 22 // props must spin up this far before the drone le
 const DRAG_RADIANS_PER_PX = 0.01
 
 // Parked on the pad until `launched` turns true, then: props spin up, lift off, hover
-const LaunchRig = ({ launched, yawRef }) => {
+const LaunchRig = ({ launched }) => {
   const group = useRef()
   const propSpeed = useRef(0)
   const height = useRef(0)
@@ -31,8 +31,6 @@ const LaunchRig = ({ launched, yawRef }) => {
     group.current.position.y = height.current + bob
     group.current.rotation.z = reduceMotion ? 0 : Math.sin(t * 1.3) * 0.03 * up
     group.current.rotation.x = reduceMotion ? 0 : Math.sin(t * 0.9) * 0.02 * up
-    // Turned by dragging: left/right only
-    group.current.rotation.y = yawRef.current
   })
 
   return (
@@ -44,7 +42,16 @@ const LaunchRig = ({ launched, yawRef }) => {
   )
 }
 
-// Drag left/right to turn the drone (not the pad), parked or hovering
+// Drone and helipad turn together, left/right only (set by dragging)
+const YawGroup = ({ yawRef, children }) => {
+  const group = useRef()
+  useFrame(() => {
+    group.current.rotation.y = yawRef.current
+  })
+  return <group ref={group}>{children}</group>
+}
+
+// Drag left/right to turn the drone and helipad together, parked or hovering
 const DroneLaunch = ({ launched }) => {
   const yawRef = useRef(0)
   const drag = useRef(null)
@@ -73,8 +80,10 @@ const DroneLaunch = ({ launched }) => {
         <PadSceneLights />
         {/* Turned slightly so the drone doesn't face the camera head-on */}
         <group rotation-y={-0.5}>
-          <LaunchRig launched={launched} yawRef={yawRef} />
-          <LandingPad />
+          <YawGroup yawRef={yawRef}>
+            <LaunchRig launched={launched} />
+            <LandingPad />
+          </YawGroup>
         </group>
       </Canvas>
     </div>
