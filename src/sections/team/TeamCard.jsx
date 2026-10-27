@@ -3,37 +3,33 @@
     captain    gold crest + crown, gold ring with a light sweep, ★★★
     lead       silver crest, ★★
     domainLead silver crest, ★
-    member     smaller steel crest
+    member     steel crest
 */
 const TIERS = {
-    // All tiers share the domain card size; rank shows through metal, crown and stars
+    // All tiers share the same avatar and crest size for complete visual uniformity across cards
     captain: {
         avatar: "size-28",
         crest: "w-[220px]",
         metal: "gold",
         stars: 3,
-        card: "px-5 py-7",
     },
     lead: {
         avatar: "size-28",
         crest: "w-[220px]",
         metal: "silver",
         stars: 2,
-        card: "px-5 py-7",
     },
     domainLead: {
         avatar: "size-28",
         crest: "w-[220px]",
         metal: "silver",
         stars: 1,
-        card: "px-5 py-7",
     },
     member: {
-        avatar: "size-24",
-        crest: "w-[190px]",
+        avatar: "size-28",
+        crest: "w-[220px]",
         metal: "steel",
         stars: 0,
-        card: "px-5 py-7",
     },
 };
 
@@ -172,7 +168,7 @@ const socialClass =
     "grid size-9 place-items-center rounded-full border border-white/10 bg-white/[0.03] text-slate-400 transition duration-300 hover:-translate-y-0.5 hover:border-sky-300/60 hover:bg-white/15 hover:text-white hover:shadow-[0_0_12px_rgba(255,255,255,0.25)]";
 
 const Socials = ({ person }) => (
-    <ul className="mt-6 flex justify-center gap-3">
+    <ul className="flex justify-center gap-3">
         {SOCIAL_ICONS.map(({ key, label, Icon }) => {
             const href = person.socials?.[key];
             return (
@@ -209,7 +205,7 @@ const Badge = ({ tier, label }) => {
               : "border border-white/20 bg-white/10 text-slate-100";
     return (
         <span
-            className={`relative z-10 -mt-2 inline-flex items-center gap-2 rounded-sm px-3 py-1 font-mono text-[11px] font-bold tracking-[0.2em] uppercase ${style}`}
+            className={`relative z-10 inline-flex items-center gap-2 rounded-sm px-3 py-1 font-mono text-[11px] font-bold tracking-[0.2em] uppercase ${style}`}
         >
             {stars && <span className="tracking-normal">{stars}</span>}
             {label}
@@ -219,78 +215,79 @@ const Badge = ({ tier, label }) => {
 
 const TeamCard = ({ person, tier = "member", badge }) => {
     const t = TIERS[tier];
-    const nameSize = "text-xl";
 
     return (
         <article
-            className={`group relative flex w-full flex-col items-center rounded-sm border bg-linear-to-br from-night-800/80 to-night-950/90 text-center backdrop-blur-xl transition duration-300 hover:-translate-y-1 ${t.card} ${
+            className={`group relative flex h-full w-full flex-col items-center justify-between rounded-sm border bg-linear-to-br from-night-800/80 to-night-950/90 p-6 text-center backdrop-blur-xl transition duration-300 hover:-translate-y-1 ${
                 tier === "captain"
                     ? "border-amber-200/25 shadow-[0_16px_50px_rgba(0,0,0,0.5),0_0_40px_rgba(245,197,66,0.12)] hover:border-amber-200/50 hover:shadow-[0_20px_60px_rgba(0,0,0,0.6),0_0_55px_rgba(245,197,66,0.25)]"
                     : "border-white/10 hover:border-white/35 hover:shadow-[0_20px_50px_rgba(0,0,0,0.55),0_0_35px_rgba(255,255,255,0.12)]"
             }`}
         >
-            {tier === "captain" && (
-                <div className="relative z-20 -mb-1">
-                    <Crown />
-                </div>
-            )}
+            <div className="flex w-full flex-col items-center">
+                {/* Photo and Crest container with uniform height and alignment */}
+                <div className="relative flex h-32 w-full items-center justify-center pt-2">
+                    {tier === "captain" && (
+                        <div className="pointer-events-none absolute -top-3 left-1/2 z-20 -translate-x-1/2">
+                            <Crown />
+                        </div>
+                    )}
 
-            <div className="relative flex items-center justify-center">
-                {/* Crest grows and glows when the card is hovered */}
-                <div
-                    className={`pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-[46%] transition duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:-translate-y-[52%] group-hover:scale-[1.08] ${t.crest}`}
-                    style={{
-                        filter: "drop-shadow(0 4px 12px rgba(0,0,0,0.8)) drop-shadow(0 0 10px var(--crest-glow))",
-                        "--crest-glow": METALS[t.metal].glow,
-                    }}
-                >
-                    <div className="transition duration-500 group-hover:brightness-125">
-                        <Crest metal={t.metal} id={`${person.id}-${tier}`} />
+                    {/* Crest grows and glows when the card is hovered */}
+                    <div
+                        className={`pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-[46%] transition duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:-translate-y-[52%] group-hover:scale-[1.08] ${t.crest}`}
+                        style={{
+                            filter: "drop-shadow(0 4px 12px rgba(0,0,0,0.8)) drop-shadow(0 0 10px var(--crest-glow))",
+                            "--crest-glow": METALS[t.metal].glow,
+                        }}
+                    >
+                        <div className="transition duration-500 group-hover:brightness-125">
+                            <Crest
+                                metal={t.metal}
+                                id={`${person.id}-${tier}`}
+                            />
+                        </div>
                     </div>
+                    <Avatar person={person} tier={tier} />
                 </div>
-                <Avatar person={person} tier={tier} />
+
+                {/* Badge row - fixed height for perfect vertical alignment across all cards */}
+                <div className="mt-5 flex h-7 items-center justify-center">
+                    <Badge
+                        tier={tier}
+                        label={
+                            badge ?? (tier === "member" ? "Member" : "Squadron")
+                        }
+                    />
+                </div>
+
+                {/* Name */}
+                <h3 className="mt-3 font-display text-xl font-bold tracking-tight text-white">
+                    {person.name}
+                </h3>
+
+                {/* Callsign */}
+                <p className="mt-1 font-mono text-[11px] tracking-[0.2em] text-slate-500 uppercase">
+                    Callsign // {person.callsign}
+                </p>
+
+                {/* Area of Expertise */}
+                <dl className="mt-5 w-full">
+                    <div className="flex min-h-[76px] flex-col justify-center rounded-sm border border-white/10 bg-night-950/60 px-4 py-3 text-left">
+                        <dt className="font-mono text-[11px] font-bold tracking-[0.15em] text-slate-100 uppercase">
+                            Area of Expertise
+                        </dt>
+                        <dd className="mt-1 text-sm text-slate-300">
+                            {person.expertise}
+                        </dd>
+                    </div>
+                </dl>
             </div>
 
-            {badge && (
-                <div className="mt-6">
-                    <Badge tier={tier} label={badge} />
-                </div>
-            )}
-
-            <h3
-                className={`font-display font-bold text-white ${badge ? "mt-4" : "mt-8"} ${nameSize}`}
-            >
-                {person.name}
-            </h3>
-            {person.role && (
-                <p className="mt-2 font-mono text-sm tracking-[0.25em] text-slate-200 uppercase">
-                    {person.role}
-                </p>
-            )}
-            <p className="mt-2 font-mono text-[11px] tracking-[0.2em] text-slate-500 uppercase">
-                Callsign // {person.callsign}
-            </p>
-
-            <dl className="mt-6 w-full space-y-3 text-left">
-                <div className="rounded-sm border border-white/10 bg-night-950/60 px-4 py-3">
-                    <dt className="font-mono text-[11px] font-bold tracking-[0.15em] text-slate-100 uppercase">
-                        Area of Expertise
-                    </dt>
-                    <dd className="mt-1 text-sm text-slate-300">
-                        {person.expertise}
-                    </dd>
-                </div>
-                <div className="rounded-sm border border-white/10 bg-night-950/60 px-4 py-3">
-                    <dt className="font-mono text-[11px] font-bold tracking-[0.15em] text-slate-100 uppercase">
-                        Contributions
-                    </dt>
-                    <dd className="mt-1 text-sm text-slate-300">
-                        {person.contributions}
-                    </dd>
-                </div>
-            </dl>
-
-            <Socials person={person} />
+            {/* Socials anchored to bottom */}
+            <div className="mt-6 w-full pt-2">
+                <Socials person={person} />
+            </div>
         </article>
     );
 };
