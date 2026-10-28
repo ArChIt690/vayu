@@ -16,7 +16,7 @@ const isValidPhone = (value) => {
 }
 
 const inputClass =
-  'mt-2 w-full rounded-xl border border-white/10 bg-night-950/70 px-4 py-3 text-slate-100 placeholder:text-slate-500 outline-none transition focus:border-sky-400/60 focus:ring-2 focus:ring-sky-400/20 disabled:opacity-60'
+  'mt-2 w-full rounded-sm border border-white/10 bg-night-950/70 px-4 py-3 text-slate-100 placeholder:text-slate-500 outline-none transition focus:border-sky-400/60 focus:ring-2 focus:ring-sky-400/20 disabled:opacity-60'
 const labelClass = 'font-mono text-[11px] font-bold tracking-[0.2em] text-slate-200 uppercase'
 
 const SponsorForm = ({ onSent }) => {
@@ -75,7 +75,7 @@ const SponsorForm = ({ onSent }) => {
     <form
       onSubmit={onSubmit}
       noValidate={false}
-      className="rounded-2xl border border-white/10 bg-night-900/60 p-6 backdrop-blur-md sm:p-8"
+      className="rounded-sm border border-white/10 bg-night-900/60 p-6 backdrop-blur-md sm:p-8"
     >
       <div className="space-y-5">
         <div>
@@ -130,7 +130,7 @@ const SponsorForm = ({ onSent }) => {
       <button
         type="submit"
         disabled={sending || sent}
-        className={`mt-7 inline-flex w-full items-center justify-center gap-2 rounded-xl px-5 py-3.5 font-mono text-sm font-medium transition ${
+        className={`mt-7 inline-flex w-full items-center justify-center gap-2 rounded-sm px-5 py-3.5 font-mono text-sm font-medium transition ${
           sent ? 'cursor-default bg-emerald-400 text-night-950' : 'bg-sky-400 text-night-950 hover:bg-sky-300 disabled:opacity-70'
         }`}
       >
@@ -142,7 +142,7 @@ const SponsorForm = ({ onSent }) => {
       </p>
 
       {status === 'error' && (
-        <p role="alert" className="mt-4 rounded-xl border border-rose-400/30 bg-rose-400/10 px-4 py-3 text-sm text-rose-300">
+        <p role="alert" className="mt-4 rounded-sm border border-rose-400/30 bg-rose-400/10 px-4 py-3 text-sm text-rose-300">
           {error}
         </p>
       )}
